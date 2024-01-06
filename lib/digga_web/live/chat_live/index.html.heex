@@ -1,0 +1,24 @@
+<div id="messages" phx-update="stream" class="overflow-auto xxmax-h-[80vh] pb-24">
+  <%= if @conversation do %>
+    <div :for={{id, message} <- @streams.messages} id={id} phx-mounted={JS.dispatch("scrollIntoView", to: "##{id}")} class={[
+      "border border-zinc-200 p-4 text-sm",
+      message.role == "assistant" && "bg-zinc-100"
+    ]}>
+      <%= message.content %>
+    </div>
+  <% end %>
+</div>
+
+<div phx-mount={JS.add_class("relative", to: "body")} class="fixed bottom-0 left-0 right-0 bg-zinc-200">
+  <div class="max-w-2xl mx-auto py-8">
+    <.live_component
+      module={DiggaWeb.ChatLive.FormComponent}
+      id="new-message"
+      action={@live_action}
+      conversation={@conversation}
+      message={%Message{}}
+      current_user={@current_user}
+      patch={~p"/chats"}
+    />
+  </div>
+</div>

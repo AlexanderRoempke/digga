@@ -1,0 +1,17 @@
+
+<.admin_page_heading title="Chat">
+    <:link><.link navigate={~p"/admin"}>Dashboard</.link></:link>
+    <:link><.link navigate={~p"/admin/chats"}>Chats</.link></:link>
+    <:link><.link navigate={~p"/admin/chats/#{@conversation}"}>Chat</.link></:link>
+</.admin_page_heading>
+
+<div id="messages" phx-update="stream" class="overflow-auto xxmax-h-[80vh] pb-24">
+  <%= if @conversation do %>
+    <div :for={{id, message} <- @streams.messages} id={id} phx-mounted={JS.dispatch("scrollIntoView", to: "##{id}")} class={[
+      "border border-zinc-200 p-4 text-sm",
+      message.role == "assistant" && "bg-zinc-100"
+    ]}>
+      <%= message.content %>
+    </div>
+  <% end %>
+</div>

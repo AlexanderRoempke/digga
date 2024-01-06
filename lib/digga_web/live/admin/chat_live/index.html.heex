@@ -1,0 +1,15 @@
+
+<.filter_form meta={@meta} fields={[user_email: [op: :ilike_and]]} />
+<.admin_page_heading title="Chat">
+  <:link><.link navigate={~p"/admin"}>Dashboard</.link></:link>
+  <:link><.link navigate={~p"/admin/chats"}>Chats</.link></:link>
+</.admin_page_heading>
+<.live_table id="chats" items={@conversations} meta={@meta} path={~p"/admin/chats"}>
+    <:col :let={conversation} label="Sent at" field={:sent_at}><%= conversation.inserted_at %></:col>
+    <:col :let={conversation} label="User" field={:user_email}><%= conversation.user.email %></:col>
+    <:action :let={conversation}>
+        <.link navigate={~p"/admin/chats/#{conversation}"} class="link link-primary">Show</.link>
+    </:action>
+</.live_table>
+
+<.pagination meta={@meta} path={~p"/admin/chats"} />
