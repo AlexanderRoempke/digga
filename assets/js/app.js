@@ -73,7 +73,6 @@ window.addEventListener("layout:toggle-sidebar", event => {
   }
 })
 
-
 window.addEventListener("scrollIntoView", event => {
   event.target.scrollIntoView({behavior: "smooth"})
 })

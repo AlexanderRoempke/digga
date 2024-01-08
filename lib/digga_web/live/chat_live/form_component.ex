@@ -18,9 +18,9 @@ defmodule DiggaWeb.ChatLive.FormComponent do
         phx-submit="save"
       >
         <div class="relative">
-          <.input field={@form[:content]} type="text" required="true" placeholder="Send a message.." autocomplete="off" label="" />
+          <.input field={@form[:content]} type="text" required="true" placeholder="Send a message.." autocomplete="off" label="" value={@content}/>
           <button type="submit" value={@content} class="absolute right-2 bottom-2 flex items-center">
-            <.icon name="hero-paper-airplane" class="w-6 h-6 text-zinc-900/40" />
+            <.icon name="hero-paper-airplane" class="w-6 h-6 text-zinc-200/40" />
           </button>
         </div>
       </.form>
@@ -45,33 +45,27 @@ defmodule DiggaWeb.ChatLive.FormComponent do
   end
 
   def handle_event("save", %{"message" => message_params}, socket) do
-    current_user = socket.assigns.current_user
-    IO.puts("handle event save current_user: #{inspect(current_user)}")
+    IO.puts("handle_event save")
     {:ok, conversation} = get_or_create_conversation(socket)
     
     case Chatbot.create_message(conversation, message_params) do
       {:ok, message} ->
         notify_parent({:saved, message})
-
+        IO.puts("success in event save")
         {:noreply,
          socket
          |> assign(:content, "")
          |> maybe_push_patch(conversation)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        IO.puts("error in event save")
         {:noreply, assign_form(socket, changeset)}
     end
   end
 
   defp get_or_create_conversation(%{assigns: %{conversation: %{} = conversation}}), do: {:ok, conversation}
   defp get_or_create_conversation(socket) do
-    user_id =
-      case Map.get(socket.assigns, :user) do
-        %{id: id} -> id
-        _ -> nil
-      end
     user = socket.assigns.current_user
-    IO.puts("get_or_create_conversation user_id: #{inspect(user)}")
     Chatbot.create_conversation(user, %{type: :chat, user_id: user.id})
   end
 

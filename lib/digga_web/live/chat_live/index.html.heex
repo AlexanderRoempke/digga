@@ -1,24 +1,65 @@
-<div id="messages" phx-update="stream" class="overflow-auto xxmax-h-[80vh] pb-24">
-  <%= if @conversation do %>
-    <div :for={{id, message} <- @streams.messages} id={id} phx-mounted={JS.dispatch("scrollIntoView", to: "##{id}")} class={[
-      "border border-zinc-200 p-4 text-sm",
-      message.role == "assistant" && "bg-zinc-100"
-    ]}>
-      <%= message.content %>
-    </div>
-  <% end %>
-</div>
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
 
-<div phx-mount={JS.add_class("relative", to: "body")} class="fixed bottom-0 left-0 right-0 bg-zinc-200">
-  <div class="max-w-2xl mx-auto py-8">
+body::before {
+    content: "";
+    position: fixed; /* Fixed position */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1; /* Behind the content */
+    display: block;
+    background: url('/images/92bb93b8-0d5f-4910-97ca-890a83878093.webp') no-repeat center center fixed; 
+    background-size: cover; /* Cover the entire viewport */
+  }
+
+</style>
+<main>
+<div class="full-background">
+  <div id="messages" phx-update="stream" class="xxmax-h-[80vh] pb-24">
+    <%= if @conversation do %>
+      <%= for {id, message} <- @streams.messages do %>
+        <div id={id} phx-mounted={JS.dispatch("scrollIntoView", to: "##{id}")} class={[
+          "p-4 text-xl text-white",
+            message.role == "assistant" && "assistant-message",
+            message.role == "user" && "user-message"
+        ]}>
+          <%= message.content %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div>
+  
     <.live_component
-      module={DiggaWeb.ChatLive.FormComponent}
-      id="new-message"
+      module={DiggaWeb.ChatLive.ChatSidebar}
+      id="conversation-sidebar"
       action={@live_action}
-      conversation={@conversation}
-      message={%Message{}}
+      conversations={@conversations}
+      meta={@meta}
       current_user={@current_user}
       patch={~p"/chats"}
-    />
+      />
+  </div>
+
+  <div class="fixed bottom-0 left-0 right-0 chat-bottombar">
+    <div class="max-w-4xl mx-auto py-8">
+      <.live_component
+        module={DiggaWeb.ChatLive.FormComponent}
+        id="new-message"
+        action={@live_action}
+        message={%Message{}}
+        current_user={@current_user}
+        patch={~p"/chats"}
+      />
+    </div>
   </div>
 </div>
+</main>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" class="light [scrollbar-gutter:stable]">
+<html lang="en" data-theme="dark" class="dark [scrollbar-gutter:stable]">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,24 +11,25 @@
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
-  <body class="bg-gray-50 dark:bg-gray-900 antialiased">
-    <ul class="relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
+  <body class="bg-slate-900 dark:bg-gray-900 antialiased">
+  <div class="bg-slate-900">
+    <ul class="relative z-10 flex items-center gap-4 px-4 sm:px-14 lg:px-18 justify-end">
       <%= if @current_user do %>
         <li>
           <.link
             href={~p"/chats"}
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+            class="text-[18px] leading-6 text-teal-500 font-semibold hover:text-fuchsia-600"
           >
             Chat
           </.link>
         </li>
-        <li class="text-[0.8125rem] leading-6 text-zinc-900">
+        <li class="text-[18px] leading-6 text-teal-500">
           <%= @current_user.email %>
         </li>
         <li>
           <.link
             href={~p"/users/settings"}
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+            class="text-[18px] leading-6 text-teal-500 font-semibold hover:text-fuchsia-600"
           >
             Settings
           </.link>
@@ -36,7 +37,7 @@
         <li>
           <.link
             href={~p"/accounts"}
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+            class="text-[18px] leading-6 text-teal-500 font-semibold hover:text-fuchsia-600"
           >
             Accounts
           </.link>
@@ -45,7 +46,7 @@
           <.link
             href={~p"/users/log_out"}
             method="delete"
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+            class="text-[18px] leading-6 text-teal-500 font-semibold hover:text-fuchsia-600"
           >
             Log out
           </.link>
@@ -54,7 +55,7 @@
         <li>
           <.link
             href={~p"/users/register"}
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+            class="text-[18px] leading-6 text-teal-500 font-semibold hover:text-fuchsia-600"
           >
             Register
           </.link>
@@ -62,13 +63,14 @@
         <li>
           <.link
             href={~p"/users/log_in"}
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+            class="text-[18px] leading-6 text-teal-500 font-semibold hover:text-fuchsia-600"
           >
             Log in
           </.link>
         </li>
       <% end %>
     </ul>
+    </div>
     <%= @inner_content %>
   </body>
 </html>

@@ -7,11 +7,7 @@ defmodule Digga.Chatbot.OpenaiService do
 
   defp default_system_prompt do
     """
-    You are a chatbot that only answers questions about the programming language Elixir.
-    Answer short with just a 1-3 sentences.
-    If the question is about another programming language, make a joke about it.
-    If the question is about something else, answer something like:
-    "I dont know, its not my cup of tea" or "I have no opinion about that topic".
+    You're a Miami club owner, a mix of Haitian and Cuban-American heritage. You've been through the mill but kept your integrity. Now you're giving advice to a newbie. Be straight-up, use your street smarts to guide, but never patronize. Share a slice of your life if they need a reality check, but always stay genuine and grounded. Focus to give short and direct ansfers you might be a bit older, but you usualy think before you speak.
     """
   end
 
@@ -48,7 +44,7 @@ defmodule Digga.Chatbot.OpenaiService do
   defp request(body, _opts) do
     if Enum.member?(@enabled_in, Application.get_env(:digga, :env)) do
       Finch.build(:post, "https://api.openai.com/v1/chat/completions", headers(), body)
-      |> Finch.request(Digga.Finch)
+      |> Finch.request(Digga.Finch, timeout: 30_000)
     else
       example = Jason.encode!(%{
         "choices" => [

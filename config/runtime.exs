@@ -31,10 +31,12 @@ if config_env() == :prod do
   maybe_ipv6 = if System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: []
 
   config :digga, Digga.Repo,
-    # ssl: true,
     url: database_url,
-    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-    socket_options: maybe_ipv6
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+    #socket_options: maybe_ipv6,
+    #stacktrace: true,
+    #show_sensitive_data_on_connection_error: true
+    # ssl: true,
 
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
@@ -49,22 +51,20 @@ if config_env() == :prod do
       """
 
   host = System.get_env("RENDER_EXTERNAL_HOSTNAME") || "example.com"
-  port = String.to_integer(System.get_env("PORT") || "4000")
+  port = String.to_integer(System.get_env("PORT") || "4001")
 
   config :digga, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
 
   config :digga, DiggaWeb.Endpoint,
-    force_ssl: [rewrite_on: [:x_forwarded_proto]],
-    url: [host: host, port: 443, scheme: "https"],
-    http: [
-      # Enable IPv6 and bind on all interfaces.
-      # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
-      # See the documentation on https://hexdocs.pm/plug_cowboy/Plug.Cowboy.html
-      # for details about using IPv6 vs IPv4 and loopback vs public addresses.
-      ip: {0, 0, 0, 0, 0, 0, 0, 0},
-      port: port
-    ],
-    secret_key_base: secret_key_base
+  url: [host: host, port: port, scheme: "https"],
+  http: [
+    # Bind on all interfaces, listen on a standard HTTP port (e.g., 80)
+    ip: {0, 0, 0, 0, 0, 0, 0, 0},
+    port: 4000 # Change this to 80 or another port for HTTP
+  ],
+  check_origin: false,
+  secret_key_base: secret_key_base
+
 
   # ## SSL Support
   #

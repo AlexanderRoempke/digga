@@ -684,9 +684,9 @@ defmodule DiggaWeb.CoreComponents do
     # with our gettext backend as first argument. Translations are
     # available in the errors.po file (as we use the "errors" domain).
     if count = opts[:count] do
-      Gettext.dngettext(TutorialWeb.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(DiggaWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(TutorialWeb.Gettext, "errors", msg, opts)
+      Gettext.dgettext(DiggaWeb.Gettext, "errors", msg, opts)
     end
   end
 

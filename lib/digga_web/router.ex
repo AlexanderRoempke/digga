@@ -126,9 +126,9 @@ defmodule DiggaWeb.Router do
     get "/sign_in", SessionController, :new
     post "/sign_in", SessionController, :create
     delete "/sign_out", SessionController, :delete
-    get "/reset_password", ResetPasswordController, :new
-    post "/reset_password", ResetPasswordController, :create
-    get "/reset_password/:token", ResetPasswordController, :show
+    #get "/reset_password", ResetPasswordController, :new
+    #post "/reset_password", ResetPasswordController, :create
+    #get "/reset_password/:token", ResetPasswordController, :show
   end
 
   scope "/admin", DiggaWeb.Admin, as: :admin do

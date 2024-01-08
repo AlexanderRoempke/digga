@@ -11,21 +11,23 @@ defmodule DiggaWeb.ChatLive.Index do
   alias Digga.Chatbot.Server, as: ChatbotServer
 
    @impl true
-   def mount(_params, session, socket) do
+   def mount(_params, _session, socket) do
     current_user =
       socket.assigns.current_user
-    {:ok, assign(socket, :current_user, current_user)}
+
+    {:ok,
+    socket
+    |> get_conversations_for_user()
+    |> assign(:current_user, current_user)}
    end
 
   @impl true
   def handle_params(params, _url, socket) do
-    IO.puts("params: #{inspect(params)}")
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
   defp apply_action(socket, :show, %{"id" => id}) do
     conversation = Chatbot.get_conversation!(id, preload: [:messages])
-    IO.puts("conversation: #{inspect(conversation)}")
     ChatbotServer.subscribe(conversation)
 
     socket
@@ -48,5 +50,17 @@ defmodule DiggaWeb.ChatLive.Index do
 
   def handle_info({:response_message, message}, socket) do
     {:noreply, stream_insert(socket, :messages, message)}
+  end
+
+  defp get_conversations_for_user(socket)do
+    IO.puts("socket.assigns.current_user: #{inspect(socket.assigns.current_user)}")
+    case Chatbot.list_conversations_for_user(socket.assigns.current_user) do
+      {:ok, {conversations, meta}} ->
+        IO.puts("conversations: #{inspect(conversations)}")
+        IO.puts("meta: #{inspect(meta)}")
+        assign(socket, %{conversations: conversations, meta: meta})
+      _ ->
+      socket
+  end
   end
 end

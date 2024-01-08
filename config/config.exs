@@ -16,9 +16,6 @@ config :digga, :env, Mix.env()
 config :digga,
   ecto_repos: [Digga.Repo],
   generators: [timestamp_type: :utc_datetime, binary_id: true]
-
-config :saas_kit,
-  api_key: "K_BQbPQlbvK7RaJaicnLlH478xkkLiq4-aT_nygX" 
   
 # Configures the endpoint
 config :digga, DiggaWeb.Endpoint,
@@ -85,7 +82,7 @@ config :ueberauth, Ueberauth.Strategy.Github.OAuth,
 
 config :digga, Digga.Users.Guardian,
   issuer: "digga",
-  secret_key: System.get_env("GUARDIAN_SECRET_KEY_ADMINS") || "atua8ZYa2gkBmD094l85zx1nAyvtXWGXoUk4x3gU8gAoRTe63OpvO5M2p3Q+lIFz"
+  secret_key: System.get_env("GUARDIAN_SECRET_KEY") || "atua8ZYa2gkBmD094l85zx1nAyvtXWGXoUk4x3gU8gAoRTe63OpvO5M2p3Q+lIFz"
 
 
 config :digga, Digga.Admins.Guardian,

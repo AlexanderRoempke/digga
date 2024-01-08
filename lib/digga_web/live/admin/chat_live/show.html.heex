@@ -9,7 +9,7 @@
   <%= if @conversation do %>
     <div :for={{id, message} <- @streams.messages} id={id} phx-mounted={JS.dispatch("scrollIntoView", to: "##{id}")} class={[
       "border border-zinc-200 p-4 text-sm",
-      message.role == "assistant" && "bg-zinc-100"
+      message.role == "assistant" && "bg-purple-900"
     ]}>
       <%= message.content %>
     </div>

@@ -7,13 +7,13 @@ defmodule DiggaWeb.UserTwoFactorLive do
     ~H"""
     <div class="space-y-2">
       <.header class="text-center">Two Factor Authentication</.header>
-      <p class="text-sm text-center">Required for additional security</p>
+      <p class="text-sm text-center dark:text-white">Required for additional security</p>
 
       <%= if @has_setup do %>
-        <p class="text-sm text-center">Open your authenticator and add the verification challange code below.</p>
+        <p class="text-sm text-center dark:text-white">Open your authenticator and add the verification challange code below.</p>
       <% else %>
         <%= raw render_png(@url) %>
-        <p class="text-sm text-center">Scan the QR code with your Google authenticator and add the verification challange code below.</p>
+        <p class="text-sm text-center dark:text-white">Scan the QR code with your Google authenticator and add the verification challange code below.</p>
       <% end %>
 
       <.simple_form :let={f} for={%{}} as={:user} id="verify-2fa-auth" phx-submit="verify">
@@ -45,7 +45,7 @@ defmodule DiggaWeb.UserTwoFactorLive do
     url
     |> EQRCode.encode()
     |> EQRCode.svg()
-    |> String.replace("style=\"background-color: #FFF\"", "class=\"w-56 h-56 mx-auto shadow \"")
+    |> String.replace("style=\"background-color: #FFF\"", "class=\"w-56 h-56 mx-auto shadow bg-white\"")
   end
 
   def handle_event("verify", %{"twofactorauth" => challenge}, socket) do

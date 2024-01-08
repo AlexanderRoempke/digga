@@ -1,11 +1,14 @@
 import Config
 
+config :saas_kit,
+  api_key: "K_BQbPQlbvK7RaJaicnLlH478xkkLiq4-aT_nygX" 
+  
 # Configure your database
 config :digga, Digga.Repo,
   username: "postgres",
-  password: "doenerspieß_123",
-  hostname: "localhost",
-  database: "digga_dev",
+  password: "Doenerspieß12392u312jdjdj",
+  hostname: "db.swwfmogcgwiuocwywdsi.supabase.co",
+  database: "postgres",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -28,7 +31,6 @@ config :digga, DiggaWeb.Endpoint,
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
     tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
   ]
-
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed

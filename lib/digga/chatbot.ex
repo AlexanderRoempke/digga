@@ -33,6 +33,18 @@ defmodule Digga.Chatbot do
     Repo.all(base_conversation_query(opts))
   end
 
+  def list_conversations_for_user(user, params \\ %{}) do
+    query = from c in Conversation,
+    join: u in assoc(c, :user),
+    join: m in assoc(c, :messages),
+    preload: [user: u, messages: m],
+    where: u.id == ^user.id,
+    order_by: [desc: c.updated_at]
+
+    query
+    |> Flop.validate_and_run(params, for: Conversation)
+  end
+
   def get_conversation!(id, opts \\ []) do
     base_conversation_query(opts)
     |> Repo.get!(id)

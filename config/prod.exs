@@ -18,11 +18,3 @@ config :logger, level: :info
 
 # Runtime production configuration, including reading
 # of environment variables, is done on config/runtime.exs.
-config :digga, Digga.Repo,
-  username: "postgres",
-  password: "doenerspieß_123",
-  hostname: "localhost",
-  database: "digga_dev",
-  stacktrace: true,
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10

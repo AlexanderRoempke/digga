@@ -2,4 +2,28 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/* This file is for your main application CSS */
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #161e2b; /* This is the hex code for Tailwind CSS's slate-900 */
+  z-index: -1;
+}
+
+  .assistant-message {
+    background-color: rgba(199, 21, 133, 0.5); /* fuchsia-600 with 50% opacity */
+    backdrop-filter: blur(10px);
+  }
+  
+  .user-message {
+    background-color: rgba(56, 178, 172, 0.5); /* teal-500 with 50% opacity */
+    backdrop-filter: blur(10px);
+  }
+  .chat-bottombar {
+    background-color: rgba(168, 168, 168, 0.476); /* teal-500 with 50% opacity */
+    backdrop-filter: blur(10px);
+  }
