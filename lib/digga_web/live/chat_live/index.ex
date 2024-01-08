@@ -27,7 +27,9 @@ defmodule DiggaWeb.ChatLive.Index do
   end
 
   defp apply_action(socket, :show, %{"id" => id}) do
+    IO.puts("in Apply Action => id: #{inspect(id)}")
     conversation = Chatbot.get_conversation!(id, preload: [:messages])
+    IO.puts("in Apply Action => conversation: #{inspect(conversation)}")  
     ChatbotServer.subscribe(conversation)
 
     socket
@@ -37,6 +39,7 @@ defmodule DiggaWeb.ChatLive.Index do
   end
 
   defp apply_action(socket, :index, _params) do
+    IO.puts("in Apply Action => index")
     socket
     |> assign(:conversation, nil)
   end
@@ -53,11 +56,8 @@ defmodule DiggaWeb.ChatLive.Index do
   end
 
   defp get_conversations_for_user(socket)do
-    IO.puts("socket.assigns.current_user: #{inspect(socket.assigns.current_user)}")
     case Chatbot.list_conversations_for_user(socket.assigns.current_user) do
       {:ok, {conversations, meta}} ->
-        IO.puts("conversations: #{inspect(conversations)}")
-        IO.puts("meta: #{inspect(meta)}")
         assign(socket, %{conversations: conversations, meta: meta})
       _ ->
       socket

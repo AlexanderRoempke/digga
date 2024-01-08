@@ -44,7 +44,7 @@ defmodule Digga.Chatbot.OpenaiService do
   defp request(body, _opts) do
     if Enum.member?(@enabled_in, Application.get_env(:digga, :env)) do
       Finch.build(:post, "https://api.openai.com/v1/chat/completions", headers(), body)
-      |> Finch.request(Digga.Finch, timeout: 30_000)
+      |> Finch.request(Digga.Finch)
     else
       example = Jason.encode!(%{
         "choices" => [

@@ -31,13 +31,14 @@ defmodule Digga.Chatbot.Server do
   def handle_cast({:message, message}, state) do
     IO.puts("i am in handle_cast")
     conversation = Chatbot.get_conversation!(message.conversation_id, preload: [:messages])
-
+    
     last_no_messages =
       get_last_no_messages(conversation)
       |> Enum.map(fn %{role: role, content: content} ->
         %{"role" => role, "content" => content}
       end)
-
+    
+    IO.puts("last_no_messages: #{inspect last_no_messages}")
     chat_response = OpenaiService.call(last_no_messages)
 
     conversation

@@ -65,6 +65,8 @@ defmodule DiggaWeb.ChatLive.FormComponent do
 
   defp get_or_create_conversation(%{assigns: %{conversation: %{} = conversation}}), do: {:ok, conversation}
   defp get_or_create_conversation(socket) do
+    IO.puts("get_or_create_conversation")
+    IO.puts("socket: #{inspect socket}")
     user = socket.assigns.current_user
     Chatbot.create_conversation(user, %{type: :chat, user_id: user.id})
   end
