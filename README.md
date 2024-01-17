@@ -9,6 +9,7 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
+view on https://www.digga.fly.dev
 ## Learn more
 
   * Official website: https://www.phoenixframework.org/
