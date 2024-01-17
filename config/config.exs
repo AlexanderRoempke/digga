@@ -76,18 +76,18 @@ config :ueberauth, Ueberauth,
   ]
 
 config :ueberauth, Ueberauth.Strategy.Github.OAuth,
-  client_id: System.get_env("GITHUB_CLIENT_ID") || "c88d7ae6b8043669b48d",
-  client_secret: System.get_env("GITHUB_CLIENT_SECRET") || "7127f3ea83d5d6d65d4767e721030c07d1ee212c"
+  client_id: System.get_env("GITHUB_CLIENT_ID"),
+  client_secret: System.get_env("GITHUB_CLIENT_SECRET")
 
 
 config :digga, Digga.Users.Guardian,
   issuer: "digga",
-  secret_key: System.get_env("GUARDIAN_SECRET_KEY") || "atua8ZYa2gkBmD094l85zx1nAyvtXWGXoUk4x3gU8gAoRTe63OpvO5M2p3Q+lIFz"
+  secret_key: System.get_env("GUARDIAN_SECRET_KEY")
 
 
 config :digga, Digga.Admins.Guardian,
   issuer: "digga",
-  secret_key: System.get_env("GUARDIAN_SECRET_KEY_ADMINS") || "UcioUfdnnd/LPwEeJjvyPOjsCGNneqdL3upt0/wL2K3oZynzIzZIEEC/VvY0mY/g"
+  secret_key: System.get_env("GUARDIAN_SECRET_KEY_ADMINS")
 
 
 config :digga, Oban,
@@ -109,7 +109,7 @@ config :digga, Oban,
 config :flop, repo: Digga.Repo
 
 config :digga,
-  open_ai_api_key: System.get_env("OPEN_AI_KEY") || "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"
+  open_ai_api_key: System.get_env("OPEN_AI_KEY")
 
 config :waffle,
   storage: Waffle.Storage.S3, # or Waffle.Storage.Local

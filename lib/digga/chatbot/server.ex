@@ -40,7 +40,7 @@ defmodule Digga.Chatbot.Server do
     
     IO.puts("last_no_messages: #{inspect last_no_messages}")
     chat_response = OpenaiService.call(last_no_messages)
-
+    IO.puts("chat_response: #{inspect chat_response}")
     conversation
     |> Chatbot.create_message(chat_response)
     |> notify_subscribers()
